@@ -31,18 +31,34 @@ where the power is computed point-wise.
 This empirically reduced the mode collapse and forced the model to generate
 samples with the correct variance.
 
+Another empirical finding is that this loss worked better if it was applied
+to the 8x8 stage, while it encouraged high-frequency noise when applied to
+higher resolution images. The final model training thus scales the images to
+8x8 before applying the loss.
+
 ## Final Model
 
-Results for FashionMNIST:
+### Results for FashionMNIST:
 
+#### Final Stage
 ![Final stage](./gan_1.png)
+
+#### During Training
 ![During training](./gan_2.png)
+
+### Results for CelebA:
+
+![Final 32x32](./gan_3.png)
 
 ## Performance
 
-Seems okay (visual inspection, variance in results)
+Seems okay (visual inspection, variance in results) but does
+produce wired artifacts.
+
+For CelebA, the model does not seem to be expressive enough.
 
 ## Lessons Learned
 
 - Don't start assignments on the day they are due
 - Enforcing variance helps prevent mode-collapse
+- Growing progressively aids training as claimed in paper
